@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Bookkeeping Backoffice</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/backofficestyle.css">
+</head>
+<body>
+    
+        <header id="header">
+            <nav>
+                <div class="container">
+                    <div class="text-center">
+                        <a href="/" class="nav-brand text-dark">Bookkeeping Backoffice</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/"><i class="fas fa-angle-double-left"></i> All Books</a>
+                </div>
+            </div>
+        <div class="form-title text-center">
+            <h2 class="text-dark">New Book</h2>
+            <span class="text-light">Add in a new book 📚</span>
+        </div>
+
+        <form action="/api/books" method="POST" id="add_book">
+            <div class="new_book">
+                <div class="form-group">
+                    <label for="name" class="text-light">Name</label>
+                    <input type="hidden" name="id" value="">
+                    <input type="text" name="name" value="" placeholder="Braća Karamazovi">
+                </div>
+                <div class="form-group">
+                    <label for="author" class="text-light">Author</label>
+                    <input type="text" name="author" value="" placeholder="Fjodor M. Dostojevski">
+                </div>
+                <div class="form-group">
+                    <label for="availability" class="text-light">Availability</label>
+                    <input type="text" name="availability" value="" placeholder="Dostupna">
+                </div>
+                <div class="form-group">
+                    <label for="description" class="text-light">Description</label>
+                    <input type="text" name="description" value="" placeholder="Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio...">
+                </div>
+                <div class="form-group">
+                    <label for="bookimg" class="text-light">Book image</label>
+                    <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
+                        <button class="button-s">Upload book image</button>
+                        <input type="file" id="bookimage" name="bookimage" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="authorimg" class="text-light">Author image</label>
+                    <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
+                        <button class="button-s">Upload author image</button>
+                        <input type="file" id="authorimage" name="authorimage" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="button-s">Save book</button>
+                </div>
+            </div>
+        </form>
+       
+    </div>
+</main>
+    
+</body>
+</html>

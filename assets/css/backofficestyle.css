@@ -121,3 +121,95 @@ img {
     }
 
 }
+
+
+/* add update style */
+.form-title{
+    margin-top: 2em;
+}
+.form-title > h2{
+    padding: .5em 0;
+}
+.new_user{
+    max-width: 786px;
+    margin: auto;
+}
+#update_book .form-group,
+#add_book .form-group{
+    margin: .4em 0;
+}
+#update_book .form-group input[type="text"],
+#add_book .form-group input[type="text"]{
+    width: 100%;
+    padding: .6em 1em;
+    margin: .5em 0;
+    border: 1px solid var(--border);
+    font-family: 'Grape Nuts', cursive;
+    font-size: 1em;
+    border-radius: .2em;
+}
+
+/* Button style */
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+.button-s {
+  background: linear-gradient(to bottom right, #85cfb8, rgb(30, 179, 169));  
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Glory', sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: .2em;
+  margin: .5em 0;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  width: 100%;
+  padding: .9em 1em;
+  background-color: rgb(227, 138, 138);
+}
+.button-s:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+.button-s:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+#update_book.form-group.btn,
+#add_book.form-group.btn{
+    width: 100%;
+    padding: .9em 1em;
+    background-color: rgb(227, 138, 138);
+    border: none;
+    font-family: 'Glory', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: .2em;
+    margin: .5em 0;
+}
+#update_book.form-group.btn:hover,
+#add_book.form-group.btn:hover{
+    background-color: var(--dark);
+    color: var(--border);
+}
