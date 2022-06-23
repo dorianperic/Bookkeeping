@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
-  background-color: #f7f8fc;
+  background: linear-gradient(90deg,#e1e1e1, #85cfb8);
   font-family: "Roboto", sans-serif;
   color: #10182f;
 }
