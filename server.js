@@ -28,5 +28,8 @@ app.get('/', (req,res)=>{
     res.render('login');
 })
 
+app.get('/books', (req,res)=>{
+    res.render('gallery');
+})
 app.listen(PORT, ()=> {console.log(`serv run on http://localhost:${PORT}`)});
 

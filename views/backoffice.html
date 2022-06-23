@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Bookkeeping Backoffice</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../assets/css/backofficestyle.css">
+</head>
+<body>
+    
+        <header id="header">
+            <nav>
+                <div class="container">
+                    <div class="text-center">
+                        <a href="/" class="nav-brand text-dark">Bookkeeping Backoffice</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/add-book" class="border-shadow">
+                    <span class="text-gradient">Add a book<i class="fa-solid fa-book"></i></span>
+                </a>
+            </div>
+
+            <form action="/" method="POST">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Author</th>
+                            <th>Availability</th>
+                            <th>Description</th>
+                            <th>Book image</th>
+                            <th>Author image</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Braća Karamazovi</td>
+                            <td>Fjodor M. Dostojevski</td>
+                            <td>Dostupna</td>
+                            <td>Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio nepuna tri mjeseca prije smrti. Utjecaj ovoga romana, koji se smatra njegovim najvećim djelom, ne prestaje slabiti od njegova objavljivanja. Upečatljiva, snažna promišljanja o vjeri, smislu života, ljubavi i moralu duboko prožimaju Braću Karamazove, kao i niske strasti, pohlepa, tuga, ljubomora i humor. Nakon što je razvratni vlastelin Fjodor Pavlovič pronađen mrtav, život trojice njegovih sinova nepovratno se mijenja: Mitja, njegov prvenac, i sâm strastvena duša obuzeta zemaljskim zadovoljstvima, odmah pada pod sumnju za ocoubojstvo.
+                            </td>
+                            <td><img src="../assets/img/braca_karamazovi.jpg" width="1200" height="630"></td>
+                            <td><img src="../assets/img/dostojevski.jpeg" width="1200" height="630"></td>
+                            <td>
+                                <a href="#" class="btn border-shadow update">
+                                    <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                </a>
+                                <a class="btn border-shadow delete">
+                                    <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                </a>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </main>
+    
+</body>
+</html>
