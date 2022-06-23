@@ -23,26 +23,8 @@ app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
 app.use('/img', express.static(path.resolve(__dirname, "assets/img")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 
-
-app.get('/', (req,res)=>{
-    res.render('login');
-})
-
-app.get('/books', (req,res)=>{
-    res.render('gallery');
-})
-
-app.get('/bo', (req,res)=>{
-    res.render('backoffice');
-})
-
-app.get('/bo/add-book', (req,res)=>{
-    res.render('backofficeaddbook');
-})
-
-app.get('/bo/update-book', (req,res)=>{
-    res.render('backofficeupdatebook');
-})
+//load router
+app.use('/', require('./server/routes/router'))
 
 app.listen(PORT, ()=> {console.log(`serv run on http://localhost:${PORT}`)});
 
