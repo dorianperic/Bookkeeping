@@ -22,11 +22,20 @@ exports.gallery = (req,res)=>{
 //backoffice (GET)
 exports.bo = (req,res)=>{
     
-    axios.get('http://localhost:3000/api/book')
+    axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
+                                                            size : req.query.size,
+                                                            type : req.query.type,
+                                                            author : req.query.author,
+                                                            sort : req.query.sort}})
     .then(function(response){
-        console.log(response.data);
-        res.render('backoffice', { books : response.data });
-    })
+        res.render('backoffice', { books : response.data.books ,
+                                   page : response.data.page ,
+                                   numberOfPages : response.data.numberOfPages,
+                                   sort : response.data.sort,
+                                   type : response.data.type,
+                                   author : response.data.author,
+                                   size : response.data.size});
+    })        
     .catch(err =>{
         res.send(err);
     })

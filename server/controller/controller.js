@@ -96,7 +96,7 @@ exports.create = async (req,res)=>{
 }
 
 //get all books & get single book
-exports.find = (req,res)=>{
+exports.find = async (req,res)=>{
     
     if(req.query.id){
         const id = req.query.id;
@@ -114,12 +114,66 @@ exports.find = (req,res)=>{
             })
 
     }else{
-        Bookdb.find()
-        .then(books => {
-            res.send(books)
-        })
-        .catch(err => {
-            res.status(500).send({ message : err.message || "Error Occurred while retriving book" })
+        let {page, size, sort, name, author} = req.query
+        
+        if(!page){
+            page = 1
+        }else{
+            page = parseInt(req.query.page);
+        }
+        if(!size){
+            size = 10
+        }
+        
+        if(!sort || sort == "az"){
+            sort = 1
+        }else if(sort == "za"){
+            sort = -1
+        }
+        
+        const createBookQueryFilter = (queryString) => {
+            const queryFilter = {}
+
+            console.log(queryString.author);
+            console.log(queryString.type);
+
+            queryString.author && (queryFilter.author = queryString.author)
+            queryString.type && (queryFilter.type = queryString.type)
+
+            return queryFilter
+        }
+
+        const query = createBookQueryFilter(req.query);
+
+        console.log(query);
+
+        const limit = parseInt(size)
+        const skip = (page - 1) * size
+
+        const numOfResults = await Bookdb.countDocuments(query);
+        const numberOfPages = Math.ceil(numOfResults / limit);
+
+        if(page > numberOfPages){
+            res.status(501).send({ message : "Page does not exist (you have already reached last page)" })
+            return;
+        }else if(page < 1){
+            res.status(501).send({ message : "Page does not exist (theres no point counting pages into negative numbers)" })
+            return;
+        }
+
+        Bookdb.find(query).limit(limit).skip(skip).sort({name:sort})
+            .then(books => {
+                res.send({books : books, 
+                    page : page,
+                    numberOfPages : numberOfPages,
+                    sort : req.query.sort,
+                    name : req.query.name,
+                    author : req.query.author,
+                    size : limit
+                    })
+            })
+            .catch(err => {
+            res.status(500).send({ message : err.message || "Error Occurred while retriving books" })
         })
     }
 }
