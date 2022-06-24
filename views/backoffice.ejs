@@ -29,6 +29,38 @@
                 </a>
             </div>
 
+            
+        <form action="/bo" method="GET" id="search_book">
+            <div class="new_book">
+                <div class="form-group">
+                    <label for="sort" class="text-light">Odaberi opciju sortiranja </label>
+                        <select name="sort">
+                            <option value="az">A-Z)</option>
+                            <option value="za">Z-A</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <input 
+                        type="text"
+                        name="author"
+                        class="text-light"
+                        placeholder="Filtriraj po autoru"
+                    />
+                </div>
+                <div class="form-group">
+                    <input 
+                        type="text"
+                        name="type"
+                        class="text-light"
+                        placeholder="Filtriraj po vrsti"
+                    />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="button-s">Filtriraj knjige !</button>
+                </div>
+            </div>
+        </form>
+
             <form action="/" method="POST">
                 <table class="table">
                     <thead class="thead-dark">
@@ -57,6 +89,7 @@
                                 <td>Dostupna </td>
                                 <% } %>
                                 <td><%= books[i].description %></td>
+                                <td><%= books[i].type %></td>
                                 <td><img src="<%= books[i].bookpicture %>" alt="" width="630" height="1200"></img></th>
                                 <td><img src="<%= books[i].authorpicture %>" alt="" width="630" height="1200"></img></th>
                                 <td>
@@ -70,8 +103,25 @@
                             </tr>
                         <% } %> 
                     </tbody>
+
                 </table>
             </form>
+
+            <div class="break">
+                <% if(page == 1) { %> <a href="/bo/?sort=<%=sort%>&author=<%=author%>&type=<%=type%>&page=<%=page%>&size=<%=size%>"class="border-shadow">
+                    <span class="text-gradient"><i class="fa-solid fa-angles-left"></i>Page before</span>
+                </a><% } %>
+                <% if(page > 1) { %> <a href="/bo/?sort=<%=sort%>&author=<%=author%>&type=<%=type%>&page=<%=page-1%>&size=<%=size%>"class="border-shadow">
+                    <span class="text-gradient"><i class="fa-solid fa-angles-left"></i>Page before</span>
+                </a> <% } %>
+                <% if(page == numberOfPages) { %> <a href="/bo/?sort=<%=sort%>&author=<%=author%>&type=<%=type%>&page=<%=page%>&size=<%=size%>"class="border-shadow">
+                    <span class="text-gradient">Next page<i class="fa-solid fa-angles-right"></i></span>
+                </a> <% } %>
+                <% if(page < numberOfPages) { %> <a href="/bo/?sort=<%=sort%>&author=<%=author%>&type=<%=type%>&page=<%=page+1%>&size=<%=size%>"class="border-shadow">
+                    <span class="text-gradient">Next page<i class="fa-solid fa-angles-right"></i></span>
+                </a>  <% } %>
+            </div>
+
         </div>
     </main>
     
