@@ -93,14 +93,32 @@ exports.create = async (req,res)=>{
 //get all books & get single book
 exports.find = (req,res)=>{
     
-    Bookdb.find()
-    .then(book => {
-        res.send(book)
-    })
-    .catch(err => {
-        res.status(500).send({ message : err.message || "Error Occurred while retriving book" })
-    })
+    if(req.query.id){
+        const id = req.query.id;
+
+        Bookdb.findById(id)
+            .then(data =>{
+                if(!data){
+                    res.status(404).send({ message : "No book with id: "+ id})
+                }else{
+                    res.send(data)
+                }
+            })
+            .catch(err =>{
+                res.status(500).send({ message: "Erro retrieving book with id " + id})
+            })
+
+    }else{
+        Bookdb.find()
+        .then(books => {
+            res.send(books)
+        })
+        .catch(err => {
+            res.status(500).send({ message : err.message || "Error Occurred while retriving book" })
+        })
+    }
 }
+
 
 //update book by id
 exports.update = async (req,res)=>{
