@@ -135,10 +135,12 @@ img {
     margin: auto;
 }
 #update_book .form-group,
+#search_book .form-group,
 #add_book .form-group{
     margin: .4em 0;
 }
 #update_book .form-group input[type="text"],
+#search_book .form-group input[type="text"],
 #add_book .form-group input[type="text"]{
     width: 100%;
     padding: .6em 1em;
@@ -183,10 +185,10 @@ img {
   background-color: rgb(227, 138, 138);
 }
 .button-s:not([disabled]):focus {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem #2b2d42, .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
 .button-s:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem #2b2d42, .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
 .upload-btn-wrapper input[type=file] {
     font-size: 100px;
@@ -197,6 +199,7 @@ img {
 }
 
 #update_book.form-group.btn,
+#search_book.form-group.btn,
 #add_book.form-group.btn{
     width: 100%;
     padding: .9em 1em;
@@ -209,7 +212,86 @@ img {
     margin: .5em 0;
 }
 #update_book.form-group.btn:hover,
+#search_book.form-group.btn:hover,
 #add_book.form-group.btn:hover{
     background-color: var(--dark);
     color: var(--border);
+}
+
+.selectedLink{
+    color: rgb(227, 138, 138);
+}
+
+.break{
+    margin: 50px 0;
+}
+
+a:link,a:visited,a:hover,a:active{
+    text-decoration: none;
+}
+
+.wrapper{
+    width: 95%;
+    margin: 0 auto;
+}
+
+#search-container{
+    margin: 1em 0;
+}
+
+#search-container input{
+    background-color: transparent;
+    width: 40%;
+    border-bottom: 2px solid rgb(159, 18, 224);
+    padding: 1em 0.3rem;
+}
+
+#search-container input:focus{
+    border-bottom-color: rgb(159, 18, 224);
+}
+
+#search-container button{
+    padding: 1em 2em;
+    margin-left: 1em;
+    background-color: rgb(159, 18, 224);
+    color: #FFFFFF;
+    border-radius: 5px;
+    margin-top: 0.5em;
+}
+
+
+select {
+	width: 100%;
+    padding: .6em 1em;
+    margin: .5em 0;
+    border: 1px solid var(--border);
+    right: 0px;
+	color: rgb(30, 179, 169);
+	width: 310px;
+	padding: 15px;
+	height: 25px;
+	cursor: pointer;
+    font-family: 'Grape Nuts', cursive;
+	background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px no-repeat white;
+}
+
+select:hover {
+	background-color: transparent;
+	color: white;
+	padding: 15px 5px 15px 25px;
+}
+
+select option {
+	background-color: white;
+	color: gray;
+	width: 310px;
+	padding: 10px 15px;
+	height: 20px;
+	cursor: pointer;
+}
+
+select option:hover {
+	padding-left: 25px;
+	width: 270px;
+	color: rgb(30, 179, 169);
 }
