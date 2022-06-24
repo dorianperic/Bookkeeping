@@ -33,7 +33,7 @@
             <span class="text-light">Add in a new book 📚</span>
         </div>
 
-        <form action="/api/books" method="POST" id="add_book">
+        <form action="/api/books" method="POST" id="add_book" role="form" enctype="multipart/form-data" >
             <div class="new_book">
                 <div class="form-group">
                     <label for="name" class="text-light">Name</label>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label for="availability" class="text-light">Availability</label>
-                    <input type="text" name="availability" value="" placeholder="Dostupna">
+                    <input type="text" name="availability" value="" placeholder="Dostupna/Posuđena">
                 </div>
                 <div class="form-group">
                     <label for="description" class="text-light">Description</label>
