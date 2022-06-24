@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Bookkeeping Backoffice</title>
+    <title>Knjižara Backoffice</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/backofficestyle.css">
@@ -16,6 +17,7 @@
                 <div class="container">
                     <div class="text-center">
                         <a href="/bo" class="nav-brand text-dark">Bookkeeping Backoffice</a>
+                        <a href="/bo" class="nav-brand text-dark">Knjižara Backoffice</a>
                     </div>
                 </div>
             </nav>
@@ -26,48 +28,60 @@
             <div class="box-nav d-flex justify-between">
                 <div class="filter">
                     <a href="/bo"><i class="fas fa-angle-double-left"></i> All Books</a>
+                    <a href="/bo"><i class="fas fa-angle-double-left"></i> Sve knjige</a>
                 </div>
             </div>
         <div class="form-title text-center">
             <h2 class="text-dark">New Book</h2>
             <span class="text-light">Add in a new book 📚</span>
+            <h2 class="text-dark">Nova knjiga</h2>
+            <span class="text-light">Dodajte novu knjigu 📚</span>
         </div>
 
         <form action="/api/books" method="POST" id="add_book" role="form" enctype="multipart/form-data" >
+        <form action="/api/book" method="POST" id="add_book" role="form" enctype="multipart/form-data" >
             <div class="new_book">
                 <div class="form-group">
                     <label for="name" class="text-light">Name</label>
+                    <label for="name" class="text-light">Ime knjige</label>
                     <input type="hidden" name="id" value="">
                     <input type="text" name="name" value="" placeholder="Braća Karamazovi">
                 </div>
                 <div class="form-group">
                     <label for="author" class="text-light">Author</label>
+                    <label for="author" class="text-light">Autor knjige</label>
                     <input type="text" name="author" value="" placeholder="Fjodor M. Dostojevski">
                 </div>
                 <div class="form-group">
                     <label for="availability" class="text-light">Availability</label>
+                    <label for="availability" class="text-light">Dostupnost</label>
                     <input type="text" name="availability" value="" placeholder="Dostupna/Posuđena">
                 </div>
                 <div class="form-group">
                     <label for="description" class="text-light">Description</label>
+                    <label for="description" class="text-light">Kratki opis</label>
                     <input type="text" name="description" value="" placeholder="Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio...">
                 </div>
                 <div class="form-group">
                     <label for="bookimg" class="text-light">Book image</label>
                     <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
                         <button class="button-s">Upload book image</button>
+                        <button class="button-s">Prenesite sliku knjige !</button>
                         <input type="file" id="bookimage" name="bookimage" accept="image/*">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="authorimg" class="text-light">Author image</label>
+                    <label for="authorimg" class="text-light">Slika autora</label>
                     <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
                         <button class="button-s">Upload author image</button>
+                        <button class="button-s">Prenesite sliku autora !</button>
                         <input type="file" id="authorimage" name="authorimage" accept="image/*">
                     </div>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="button-s">Save book</button>
+                    <button type="submit" class="button-s">Spremi knjigu !</button>
                 </div>
             </div>
         </form>

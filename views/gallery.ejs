@@ -31,9 +31,9 @@
                 <small>Romantizam</small>
               </div>
             </div>
-
-            <a href="#" class="button">Posudi knjigu!
-            </a>
+            <% if(books[i].availability == true) {%>
+              <a href="#" class="button">Posudi knjigu!</a>
+            <% } %>
           </div>
         </div>
         <% } %>
@@ -62,29 +62,7 @@
           </div>
         </div>
         
-        <div class="card">
-          <div class="card-header">
-            <img src="/img/ana_karenjina.jpg" alt="city" />
-          </div>
-          <div class="card-body">
-            <span class="tag tag-green">Dostupna knjiga</span>
-            <h4>
-              <% books[1].name %>
-            </h4>
-            <p>
-              Ana Karenjina je roman ruskog pisca Lava Nikolajeviča Tolstoja, koji je prvobitno objavljivan u djelovima od 1873. do 1877. godine. Prva pojava romana je bila u Ruskom glasniku, ali nije objavljen do kraja, pošto je Tolstoj došao u sukob s urednikom Mihailom Katkovim oko pitanja koja su pokrenuta u završnom dijelu.
-            </p>
-            <div class="author">
-              <img src="/img/tolstoj.jpg" alt="user" />
-              <div class="author-info">
-                <h5>Lav Nikolajevič Tolstoj</h5>
-                <small>Roman</small>
-              </div>
-            </div>
-
-            <a href="#" class="button">Posudi knjigu!
-            </a>
-        </div>
+        
 
     </div>
 
