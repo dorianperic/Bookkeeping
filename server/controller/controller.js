@@ -184,5 +184,22 @@ exports.update = async (req,res)=>{
 
 //delete book by id
 exports.delete = (req,res)=>{
+    const id = req.params.id;
+
+    Bookdb.findByIdAndDelete(id)
+        .then(data => {
+            if(!data){
+                res.status(404).send({ message : `Cannot delete book with id ${id}. `})
+            }else{
+                res.send({
+                    message : "Book was deleted successfully!"
+                })
+            }
+        })
+        .catch(err =>{
+            res.status(500).send({
+                message: "Could not delete book with id=" + id
+            });
+        });
     
 }
