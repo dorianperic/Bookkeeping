@@ -44,26 +44,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Braća Karamazovi</td>
-                            <td>Fjodor M. Dostojevski</td>
-                            <td>Dostupna</td>
-                            <td>Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio nepuna tri mjeseca prije smrti. Utjecaj ovoga romana, koji se smatra njegovim najvećim djelom, ne prestaje slabiti od njegova objavljivanja. Upečatljiva, snažna promišljanja o vjeri, smislu života, ljubavi i moralu duboko prožimaju Braću Karamazove, kao i niske strasti, pohlepa, tuga, ljubomora i humor. Nakon što je razvratni vlastelin Fjodor Pavlovič pronađen mrtav, život trojice njegovih sinova nepovratno se mijenja: Mitja, njegov prvenac, i sâm strastvena duša obuzeta zemaljskim zadovoljstvima, odmah pada pod sumnju za ocoubojstvo.
-                            </td>
-                            <td><img src="/img/braca_karamazovi.jpg" width="1200" height="630"></td>
-                            <td><img src="/img/dostojevski.jpeg" width="1200" height="630"></td>
-                            <td>
-                                <a href="#" class="btn border-shadow update">
-                                    <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
-                                </a>
-                                <a class="btn border-shadow delete">
-                                    <span class="text-gradient"><i class="fas fa-times"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-
-
+                        <% for(var i = 0; i < books.length; i++) { %>
+                            <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= books[i].name %></td>
+                                <td><%= books[i].author %></td>
+                                <% if(books[i].availability == true) { %>
+                                <td>Posuđena </td> 
+                                <% } %> 
+                                <% if(books[i].availability == false) { %> 
+                                <td>Dostupna </td>
+                                <% } %>
+                                <td><%= books[i].description %></td>
+                                <td><img src="<%= books[i].bookpicture %>" alt="" width="630" height="1200"></img></th>
+                                <td><img src="<%= books[i].authorpicture %>" alt="" width="630" height="1200"></img></th>
+                                <td>
+                                    <a href="/bo/update-book?id=<%= books[i]._id%>" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                    <a class="btn border-shadow delete" data-id =<%= books[i]._id%> >
+                                        <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <% } %> 
                     </tbody>
                 </table>
             </form>

@@ -7,23 +7,27 @@
 <body>
 
     <div class="container">
-        
+      <% for(var i = 0; i < books.length; i++) { %>
         <div class="card">
           <div class="card-header">
-            <img src="/img/braca_karamazovi.jpg" alt="rover" />
+            <img src="<%= books[i].bookpicture %>" alt="rover" />
           </div>
           <div class="card-body">
+            <% if(books[i].availability == true) {%>
             <span class="tag tag-green">Dostupna knjiga</span>
+            <% } %>
+            <% if(books[i].availability == false) {%>
+              <span class="tag tag-red">Nedostupna knjiga</span>
+            <% } %>
             <h4>
-              Braća Karamazovi
+              <%= books[i].name %>
             </h4>
             <p>
-                Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio nepuna tri mjeseca prije smrti. Utjecaj ovoga romana, koji se smatra njegovim najvećim djelom, ne prestaje slabiti od njegova objavljivanja. Upečatljiva, snažna promišljanja o vjeri, smislu života, ljubavi i moralu duboko prožimaju Braću Karamazove, kao i niske strasti, pohlepa, tuga, ljubomora i humor. Nakon što je razvratni vlastelin Fjodor Pavlovič pronađen mrtav, život trojice njegovih sinova nepovratno se mijenja: Mitja, njegov prvenac, i sâm strastvena duša obuzeta zemaljskim zadovoljstvima, odmah pada pod sumnju za ocoubojstvo.
-            </p>
+              <%= books[i].description %>            </p>
             <div class="author">
-              <img src="/img/dostojevski.jpeg" alt="user" />
+              <img src="<%= books[i].authorpicture %>" alt="user" />
               <div class="author-info">
-                <h5>Fjodor M. Dostojevski</h5>
+                <h5><%= books[i].author %></h5>
                 <small>Romantizam</small>
               </div>
             </div>
@@ -32,7 +36,8 @@
             </a>
           </div>
         </div>
-        
+        <% } %>
+
         <div class="card">
           <div class="card-header">
             <img src="/img/mrtve_duse.jpg" alt="ballons" />
@@ -64,7 +69,7 @@
           <div class="card-body">
             <span class="tag tag-green">Dostupna knjiga</span>
             <h4>
-              Ana Karenjina
+              <% books[1].name %>
             </h4>
             <p>
               Ana Karenjina je roman ruskog pisca Lava Nikolajeviča Tolstoja, koji je prvobitno objavljivan u djelovima od 1873. do 1877. godine. Prva pojava romana je bila u Ruskom glasniku, ali nije objavljen do kraja, pošto je Tolstoj došao u sukob s urednikom Mihailom Katkovim oko pitanja koja su pokrenuta u završnom dijelu.

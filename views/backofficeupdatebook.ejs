@@ -26,7 +26,7 @@
     <div class="container">
         <div class="box-nav d-flex justify-between">
             <div class="filter">
-                <a href="/"><i class="fas fa-angle-double-left"></i> All Books</a>
+                <a href="/bo"><i class="fas fa-angle-double-left"></i> All Books</a>
             </div>
         </div>
     <div class="form-title text-center">
@@ -34,24 +34,29 @@
         <span class="text-light">Update a book 📚</span>
     </div>
 
-    <form action="/api/books" method="POST" id="update_book" role="form" enctype="multipart/form-data" >
+    <form action="/api/book/update" method="POST" id="update_book" role="form" enctype="multipart/form-data" >
         <div class="new_book">
             <div class="form-group">
                 <label for="name" class="text-light">Name</label>
-                <input type="hidden" name="id" value="">
-                <input type="text" name="name" value="" placeholder="Braća Karamazovi">
+                <input type="hidden" name="id" value="<%= book._id %>">
+                <input type="text" name="name" value="<%= book.name %>" placeholder="Braća Karamazovi">
             </div>
             <div class="form-group">
                 <label for="author" class="text-light">Author</label>
-                <input type="text" name="author" value="" placeholder="Fjodor M. Dostojevski">
+                <input type="text" name="author" value="<%= book.author %>" placeholder="Fjodor M. Dostojevski">
             </div>
             <div class="form-group">
                 <label for="availability" class="text-light">Availability</label>
-                <input type="text" name="availability" value="" placeholder="Dostupna">
+                <% if(book.availability == true) { %>
+                <input type="text" name="availability" value="Posuđena" placeholder="Dostupna/Posuđena">
+                <% } %> 
+                <% if(book.availability == false) { %> 
+                <input type="text" name="availability" value="Dostupna" placeholder="Dostupna/Posuđena">
+                <% } %>
             </div>
             <div class="form-group">
                 <label for="description" class="text-light">Description</label>
-                <input type="text" name="description" value="" placeholder="Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio...">
+                <input type="text" name="description" value="<%= book.description %>" placeholder="Braća Karamazovi posljednji je roman ruskoga genija Fjodora Mihajloviča Dostojevskoga, koji je dovršio...">
             </div>
             <div class="form-group">
                 <label for="bookimg" class="text-light">Book image</label>
