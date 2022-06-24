@@ -8,10 +8,14 @@ exports.login = (req,res)=>{
 //gallery (GET)
 exports.gallery = (req,res)=>{
     
-    axios.get('http://localhost:3000/api/book')
+    axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
+                                                            size : req.query.size}})
     .then(function(response){
         console.log(response.data);
-        res.render('gallery', { books : response.data });
+        res.render('gallery', { books : response.data.books ,
+                                page : response.data.page ,
+                                numberOfPages : response.data.numberOfPages,
+                                size : response.data.size});
     })
     .catch(err =>{
         res.send(err);

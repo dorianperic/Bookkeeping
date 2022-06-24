@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/gallerystyle.css">
-</head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></head>
 <body>
+
+  
+  
+
 
     <div class="container">
       <% for(var i = 0; i < books.length; i++) { %>
@@ -23,12 +27,15 @@
               <%= books[i].name %>
             </h4>
             <p>
-              <%= books[i].description %>            </p>
+              <%= books[i].description %>
+            </p>
             <div class="author">
               <img src="<%= books[i].authorpicture %>" alt="user" />
               <div class="author-info">
                 <h5><%= books[i].author %></h5>
-                <small>Romantizam</small>
+                <small>
+                  <%= books[i].type %>
+                </small>
               </div>
             </div>
             <% if(books[i].availability == true) {%>
@@ -37,34 +44,37 @@
           </div>
         </div>
         <% } %>
-
-        <div class="card">
-          <div class="card-header">
-            <img src="/img/mrtve_duse.jpg" alt="ballons" />
-          </div>
-          <div class="card-body">
-            <span class="tag tag-red">Posuđena knjiga</span>
-            <h4>
-              Mrtve duše
-            </h4>
-            <p>
-                Nedovršeni roman “Mrtve duše” Nikolaja Vasiljeviča Gogolja, objavljen 1842., prvotno je zamišljen kao poema u tri dijela, pisana po uzoru na Danteovu Božanstvenu komediju (podijeljenu na Pakao, Čistilište i Raj). Prvi dio Gogolj je pisao gotovo sedam godina u Parizu, Rimu i Švicarskoj, ali njegovo krhko psihičko stanje nije dočekalo završetak romana.
-            </p>
-            <div class="author">
-              <img src="/img/gogolj.jpg" alt="user" />
-              <div class="author-info">
-                <h5>Nikolaj Vasiljevič Gogolj</h5>
-                <small>Pikarski roman</small>
-              </div>
-            </div>
-
-            
-          </div>
-        </div>
-        
-        
-
     </div>
+
+    <div class="floating-container">
+      <div class="floating-button">+</div>
+      <div class="element-container">
+        <div class="break">
+          <% if(page == 1) { %> <a href="/gallery/?page=<%=page%>&size=<%=size%>">
+            <span class="float-element tooltip-left">
+              <i class="material-icons">chevron_left
+              </i></a>
+          <% } %>
+          <% if(page > 1) { %> <a href="/gallery/?page=<%=page-1%>&size=<%=size%>">
+            <span class="float-element tooltip-left">
+              <i class="material-icons">chevron_left
+              </i></a>
+          <% } %>
+          <% if(page == numberOfPages) { %> <a href="/gallery/?page=<%=page%>&size=<%=size%>">
+            <span class="float-element tooltip-left">
+              <i class="material-icons">chevron_right
+              </i></a>
+          <% } %>
+          <% if(page < numberOfPages) { %> <a href="/gallery/?page=<%=page+1%>&size=<%=size%>">
+            <span class="float-element tooltip-left">
+              <i class="material-icons">chevron_right
+              </i></a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    
 
 </body>
 </html>
