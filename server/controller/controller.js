@@ -42,6 +42,10 @@ exports.create = async (req,res)=>{
         res.status(400).send({ message : "Description can not be empty!"});
         return;
     }
+    if(!req.body.type){
+        res.status(400).send({ message : "Type can not be empty!"});
+        return;
+    }
     if(!req.files.bookimage){
         res.status(400).send({ message : "Book image can not be emtpy!"});
         return;
@@ -74,6 +78,7 @@ exports.create = async (req,res)=>{
         author : req.body.author,
         availability : availabilityBool,
         description : req.body.description,
+        type : req.body.type,
         bookpicture : linkBook,
         authorpicture : linkAuthor
     })  
@@ -151,6 +156,10 @@ exports.update = async (req,res)=>{
         res.status(400).send({ message : "Description can not be empty!"});
         return;
     }
+    if(!req.body.type){
+        res.status(400).send({ message : "Type can not be empty!"});
+        return;
+    }
     if(!req.files.bookimage){
         res.status(400).send({ message : "Book image can not be emtpy!"});
         return;
@@ -183,6 +192,7 @@ exports.update = async (req,res)=>{
         author : req.body.author,
         availability : availabilityBool,
         description : req.body.description,
+        type : req.body.type,
         bookpicture : linkBook,
         authorpicture : linkAuthor
     }

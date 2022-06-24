@@ -18,6 +18,10 @@ var schema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    type:{
+        type : String,
+        required : true,
+    },
     bookpicture:{
         type : String,
         required : true
