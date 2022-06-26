@@ -1,6 +1,8 @@
-var Bookdb = require('../model/model');
+var { Bookdb , Userdb } = require('../model/model');
 const axios = require('axios');
 const { Buffer } = require('buffer');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 async function getImageUrl(data){
     return axios.post('https://api.imgur.com/3/image', data,{
@@ -11,9 +13,79 @@ async function getImageUrl(data){
         .then(res=>res.data.data.link);   
 }
 
+var sha512 = function(password, salt){
+    var hash = crypto.createHmac('sha256', salt); 
+    hash.update(password);
+    var value = hash.digest('hex');
+    return {
+        salt:salt,
+        passwordhash:value
+    };
+}
+
+//user login
+exports.login = (req,res)=>{
+    const { username, password } = req.body;
+    const queryFilter = {}
+    
+    queryFilter.name = req.body.username;
+
+    console.log(req.body)
+    console.log(queryFilter)
+
+
+    Userdb.find(queryFilter)
+        .then(user =>{
+            var passwordData = sha512(password, process.env.HASH_SALT);
+            
+            console.log(passwordData);
+            console.log(user);
+
+
+            // username je jedinstven
+            if(passwordData.passwordhash === user[0].passwordhash)
+            {
+                const userData = { role: user[0].role };
+
+                console.log(userData);
+                const accessToken = jwt.sign(userData, process.env.ACCESSTOKENSECRET);
+
+                
+                if(process.env.NODE_ENV == "development"){
+                    const options = {
+                        httpOnly : true,
+                        expire : new Date(Date.now() + process.env.EXPIRE_TOKEN)
+                    }
+
+                    res.cookie('token', accessToken, options ).redirect(200,'/gallery')
+                    res.end()
+                    //res.redirect(301, '/gallery');
+                }else{
+                    res.status(500).send({ message: "Error"})
+                }
+
+                //res.status(200).cookie('token', accessToken, options ).send();
+                //res.status(200).send();
+            }else{
+                res.status(500).send({ message: "Invalid username or password"})
+            }
+
+        })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).send({ message: "Error "})
+    })
+}
+
 //create and save new book
 exports.create = async (req,res)=>{
-    
+    const { role } = req.user;
+
+    if (role !== true) {
+        return res.sendStatus(403);
+    }
+
+
     //request validation
     if(!req.body.name){
         res.status(400).send({ message : "Book name can not be empty!"});
@@ -97,7 +169,7 @@ exports.create = async (req,res)=>{
 
 //get all books & get single book
 exports.find = async (req,res)=>{
-    
+
     if(req.query.id){
         const id = req.query.id;
 
@@ -134,9 +206,6 @@ exports.find = async (req,res)=>{
         const createBookQueryFilter = (queryString) => {
             const queryFilter = {}
 
-            console.log(queryString.author);
-            console.log(queryString.type);
-
             queryString.author && (queryFilter.author = queryString.author)
             queryString.type && (queryFilter.type = queryString.type)
 
@@ -144,8 +213,6 @@ exports.find = async (req,res)=>{
         }
 
         const query = createBookQueryFilter(req.query);
-
-        console.log(query);
 
         const limit = parseInt(size)
         const skip = (page - 1) * size
@@ -178,9 +245,13 @@ exports.find = async (req,res)=>{
     }
 }
 
-
 //update book by id
 exports.update = async (req,res)=>{
+    const { role } = req.user;
+
+    if (role !== true) {
+        return res.sendStatus(403);
+    }
 
     //request validation
     if(!req.body.name){
@@ -266,7 +337,14 @@ exports.update = async (req,res)=>{
 
 //delete book by id
 exports.delete = (req,res)=>{
-    const id = req.params.id;
+    const id = req.body.id;
+    const { role } = req.user;
+
+    if (role !== true) {
+        return res.sendStatus(403);
+    }
+    
+    console.log(id);
 
     Bookdb.findByIdAndDelete(id)
         .then(data => {

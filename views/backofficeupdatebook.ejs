@@ -65,25 +65,29 @@
             <div class="form-group">
                 <label for="bookimg" class="text-light">Slika knjige</label>
                 <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
-                    <button class="button-s">Prenesite sliku knjige !</button>
+                    <button class="button-s">Prenesite sliku knjige</button>
                     <input type="file" id="bookimage" name="bookimage" accept="image/*">
                 </div>
             </div>
             <div class="form-group">
                 <label for="authorimg" class="text-light">Slika autora</label>
                 <div class="upload-btn-wrapper" style="display:flex; justify-content:flex-end; width:100%; padding:0;">
-                    <button class="button-s">Prenesite sliku autora !</button>
+                    <button class="button-s">Prenesite sliku autora</button>
                     <input type="file" id="authorimage" name="authorimage" accept="image/*">
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="button-s">Ažurirajte knjigu !</button>
+                <button type="submit" class="button-s">Ažurirajte knjigu</button>
             </div>
         </div>
     </form>
 
+    <form action="/api/book/delete" method="post">
+        <input type="hidden" name="id" value="<%= book._id %>">
+        <button type="submit" class="button-s">Izbrišite knjigu</button>
+    </form>
+
     </div>
 </main>
-
 </body>
 </html>

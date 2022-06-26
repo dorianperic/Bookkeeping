@@ -3,10 +3,11 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const path = require('path');
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
+
 
 const connectDB = require('./server/database/connection');
-const { connect } = require('http2');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(morgan('tiny'))
 connectDB();
 
 app.use(fileUpload())
+app.use(cookieParser());
 
 //parse w body-parser
 app.use(bodyparser.json({limit: '50mb', extended: false}));

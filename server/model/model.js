@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//model definition
+//book model definition
 var schema = new mongoose.Schema({
     name:{
         type : String,
@@ -32,6 +32,23 @@ var schema = new mongoose.Schema({
     }
 })
 
-const Bookdb = mongoose.model('bookdb', schema)
+//user model definition
+var schema2 = new mongoose.Schema({
+    name:{
+        type : String,
+        required : true
+    },
+    passwordhash:{
+        type : String,
+        required : true,
+    },
+    role:{
+        type : Boolean,
+        required : true
+    }
+})
 
-module.exports = Bookdb;
+const Bookdb = mongoose.model('bookdb', schema)
+const Userdb = mongoose.model('userdb', schema2)
+
+module.exports = {Bookdb, Userdb};
