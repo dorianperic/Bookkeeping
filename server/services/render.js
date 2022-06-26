@@ -25,7 +25,7 @@ exports.gallery = (req,res)=>{
 
 //backoffice (GET)
 exports.bo = (req,res)=>{
-    
+   
     const { role } = req.user;
 
     console.log(role);
@@ -33,6 +33,7 @@ exports.bo = (req,res)=>{
     if (role != true) {
         return res.sendStatus(403);
     }
+
 
     axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
                                                             size : req.query.size,
@@ -71,7 +72,7 @@ exports.bo_update_book = (req,res)=>{
     if (role !== true) {
         return res.sendStatus(403);
     }
-
+    
     axios.get('http://localhost:3000/api/book', { params : { id : req.query.id }})
         .then(function(bookdata){
             res.render("backofficeupdatebook", { book : bookdata.data})

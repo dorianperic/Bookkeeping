@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken');
 
 exports.authenticateJWT = (req, res, next) => {
+    token = req.cookies.token;
     
-    if(req.cookies.token)
+    if(token)
     {
-        jwt.verify(accessToken, process.env.ACCESSTOKENSECRET, (err, user) => {
+        jwt.verify(token, process.env.ACCESSTOKENSECRET, (err, userData) => {
             if (err) {
                 return res.sendStatus(403);
             }
 
-            console.log(user);
+            console.log(userData);
 
-            req.user = user;
+            req.user = userData;
             next();
         });
     }else {

@@ -27,10 +27,11 @@ var sha512 = function(password, salt){
 exports.login = (req,res)=>{
     const { username, password } = req.body;
     const queryFilter = {}
-
-    queryFilter.username = req.body.username;
+    
+    queryFilter.name = req.body.username;
 
     console.log(req.body)
+    console.log(queryFilter)
 
 
     Userdb.find(queryFilter)
@@ -44,7 +45,11 @@ exports.login = (req,res)=>{
             // username je jedinstven
             if(passwordData.passwordhash === user[0].passwordhash)
             {
-                const accessToken = jwt.sign({ username: user.username, role: user.role }, process.env.ACCESSTOKENSECRET);
+                const userData = { role: user[0].role };
+
+                console.log(userData);
+                const accessToken = jwt.sign(userData, process.env.ACCESSTOKENSECRET);
+
                 
                 if(process.env.NODE_ENV == "development"){
                     const options = {
@@ -61,13 +66,14 @@ exports.login = (req,res)=>{
 
                 //res.status(200).cookie('token', accessToken, options ).send();
                 //res.status(200).send();
+            }else{
+                res.status(500).send({ message: "Invalid username or password"})
             }
-            res.status(500).send({ message: "Invalid password"})
 
         })
     .catch(err =>{
         console.log(err);
-        res.status(500).send({ message: "Error with finding user in db"})
+        res.status(500).send({ message: "Error "})
     })
 }
 
@@ -78,6 +84,7 @@ exports.create = async (req,res)=>{
     if (role !== true) {
         return res.sendStatus(403);
     }
+
 
     //request validation
     if(!req.body.name){
@@ -162,11 +169,6 @@ exports.create = async (req,res)=>{
 
 //get all books & get single book
 exports.find = async (req,res)=>{
-    /*const { role } = req.user;
-
-    if (role !== true) {
-        return res.sendStatus(403);
-    }*/
 
     if(req.query.id){
         const id = req.query.id;
@@ -203,9 +205,6 @@ exports.find = async (req,res)=>{
         
         const createBookQueryFilter = (queryString) => {
             const queryFilter = {}
-
-            console.log(queryString.author);
-            console.log(queryString.type);
 
             queryString.author && (queryFilter.author = queryString.author)
             queryString.type && (queryFilter.type = queryString.type)
@@ -338,12 +337,14 @@ exports.update = async (req,res)=>{
 
 //delete book by id
 exports.delete = (req,res)=>{
-    const id = req.params.id;
+    const id = req.body.id;
     const { role } = req.user;
 
     if (role !== true) {
         return res.sendStatus(403);
     }
+    
+    console.log(id);
 
     Bookdb.findByIdAndDelete(id)
         .then(data => {
