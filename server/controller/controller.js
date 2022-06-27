@@ -30,50 +30,43 @@ exports.login = (req,res)=>{
     
     queryFilter.name = req.body.username;
 
-    console.log(req.body)
-    console.log(queryFilter)
-
-
     Userdb.find(queryFilter)
         .then(user =>{
             var passwordData = sha512(password, process.env.HASH_SALT);
             
-            console.log(passwordData);
-            console.log(user);
+            //console.log(passwordData);
+            //console.log(user);
 
-
-            // username je jedinstven
-            if(passwordData.passwordhash === user[0].passwordhash)
-            {
-                const userData = { role: user[0].role };
-
-                console.log(userData);
-                const accessToken = jwt.sign(userData, process.env.ACCESSTOKENSECRET);
-
+            if(user != 0){
                 
-                if(process.env.NODE_ENV == "development"){
-                    const options = {
-                        httpOnly : true,
-                        expire : new Date(Date.now() + process.env.EXPIRE_TOKEN)
+                // username je jedinstven
+                if(passwordData.passwordhash === user[0].passwordhash)
+                {
+                    const userData = { role: user[0].role ,
+                                       username : user[0].name};
+
+                    //console.log(userData);
+                    const accessToken = jwt.sign(userData, process.env.ACCESSTOKENSECRET);
+
+                    if(process.env.NODE_ENV == "development"){
+                        const options = {
+                            httpOnly : true,
+                            expire : new Date(Date.now() + process.env.EXPIRE_TOKEN)
+                        }
+                        res.cookie('token', accessToken, options ).redirect(200,'/gallery')
+                        res.end()
                     }
 
-                    res.cookie('token', accessToken, options ).redirect(200,'/gallery')
-                    res.end()
-                    //res.redirect(301, '/gallery');
                 }else{
-                    res.status(500).send({ message: "Error"})
+                    res.status(500).send({ message: "Invalid password"})
                 }
-
-                //res.status(200).cookie('token', accessToken, options ).send();
-                //res.status(200).send();
             }else{
-                res.status(500).send({ message: "Invalid username or password"})
+                res.status(500).send({ message: "Invalid username"})
             }
-
         })
     .catch(err =>{
         console.log(err);
-        res.status(500).send({ message: "Error "})
+        res.status(500).send({ message: "Internal error"})
     })
 }
 
@@ -84,7 +77,6 @@ exports.create = async (req,res)=>{
     if (role !== true) {
         return res.sendStatus(403);
     }
-
 
     //request validation
     if(!req.body.name){
