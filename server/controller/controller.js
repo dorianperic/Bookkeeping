@@ -74,7 +74,6 @@ exports.login = (req,res)=>{
 exports.borrow = async (req,res)=>{
     if(req.body.id){
         const id = req.body.id;
-        let updateModel;
 
         const createBookQueryFilter = (availability,borrower) => {
             const queryFilter = {}
@@ -85,33 +84,20 @@ exports.borrow = async (req,res)=>{
             return queryFilter
         }
 
-        const checkBookBorrower = (id,username) => {
-            Bookdb.findById(id).then(data => {
-                if(data.borrower === username)
-                    return true;
-                else
-                    return false;
-                    
-            })
-            .catch(err =>{
-                res.status(500).send({ message : "Error checkBookBorrowere"})
-            })
-        }
-
         if(req.body.availability == "true"){
-            updateModel = createBookQueryFilter(false,req.user.username);
-            console.log(updateModel);
+            var updateModel = createBookQueryFilter(false,req.user.username);
         }
-
-        //todo put checkBookBorrower here for borrower validation
-        if(0){
+        else if(req.body.availability == "false"){
+            //todo add borrower check in model
             updateModel = createBookQueryFilter(true,"");
         }
+
+        console.log(JSON.stringify(updateModel) + "  updatemodel")
 
         Bookdb.findByIdAndUpdate(id, updateModel, { useFindAndModify: false})
         .then(data => {
             if(!data){
-                res.status(404).send({ message : `Cannot borrow book with ${id}.`})
+                res.status(404).send({ message : `Cannot find book with ${id}.`})
             }else{
                 res.status(200).send({ message : `Succsess ! `})
             }
