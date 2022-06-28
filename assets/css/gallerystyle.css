@@ -55,6 +55,9 @@ body {
 .tag-red {
   background-color: #fe5656;
 }
+.tag-purple {
+  background-color: #6f56fe;
+}
 .card-body p {
   font-size: 13px;
   margin: 0 0 40px;
@@ -236,3 +239,9 @@ a.button:hover{
   box-shadow: 0 20px 20px -10px rgba(12, 13, 12, 0.5);
 }
 
+.form-group{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}

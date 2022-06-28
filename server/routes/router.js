@@ -13,6 +13,9 @@ route.get('/',services.login)
 //gallery route (GET)
 route.get('/gallery',authentication.authenticateJWT, services.gallery)
 
+//taken books gallery route (GET)
+route.get('/gallery/borrowed',authentication.authenticateJWT, services.gallery_borrowed)
+
 //bo route (GET)
 route.get('/bo',authentication.authenticateJWT,services.bo)
 
@@ -27,6 +30,8 @@ route.post('/api/book',authentication.authenticateJWT, controller.create)
 route.get('/api/book',controller.find)
 route.post('/api/book/update',authentication.authenticateJWT,controller.update)
 route.post('/api/book/delete',authentication.authenticateJWT, controller.delete)
+
+route.post('/api/book/borrow/',authentication.authenticateJWT,controller.borrow)
 
 route.post('/api/login', controller.login)
 

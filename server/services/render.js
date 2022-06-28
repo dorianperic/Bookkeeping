@@ -23,6 +23,25 @@ exports.gallery = (req,res)=>{
 
 }
 
+//borrowed gallery (GET)
+exports.gallery_borrowed = async (req,res)=>{
+    
+
+    axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
+                                                            size : req.query.size,
+                                                            username : req.user.username}})
+    .then(function(response){
+        res.render('galleryborrowed', { books : response.data.books ,
+                                page : response.data.page ,
+                                numberOfPages : response.data.numberOfPages,
+                                size : response.data.size});
+    })
+    .catch(err =>{
+        res.send(err);
+    })
+
+}
+
 //backoffice (GET)
 exports.bo = (req,res)=>{
    

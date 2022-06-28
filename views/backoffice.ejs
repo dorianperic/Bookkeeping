@@ -69,6 +69,7 @@
                             <th>Ime knjige</th>
                             <th>Autor knjige</th>
                             <th>Dostupnost</th>
+                            <th>Posuđivać</th>
                             <th>Kratki opis</th>
                             <th>Književna vrsta</th>
                             <th>Slika knjige</th>
@@ -82,12 +83,13 @@
                                 <td><%= i + 1 %></td>
                                 <td><%= books[i].name %></td>
                                 <td><%= books[i].author %></td>
-                                <% if(books[i].availability == true) { %>
+                                <% if(books[i].availability == false) { %>
                                 <td>Posuđena </td> 
                                 <% } %> 
-                                <% if(books[i].availability == false) { %> 
+                                <% if(books[i].availability == true) { %> 
                                 <td>Dostupna </td>
                                 <% } %>
+                                <td><%= books[i].borrower %></td>
                                 <td><%= books[i].description %></td>
                                 <td><%= books[i].type %></td>
                                 <td><img src="<%= books[i].bookpicture %>" alt="" width="630" height="1200"></img></th>

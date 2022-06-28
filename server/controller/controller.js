@@ -70,6 +70,61 @@ exports.login = (req,res)=>{
     })
 }
 
+//borrow book
+exports.borrow = async (req,res)=>{
+    if(req.body.id){
+        const id = req.body.id;
+        let updateModel;
+
+        const createBookQueryFilter = (availability,borrower) => {
+            const queryFilter = {}
+
+            queryFilter.availability = availability
+            queryFilter.borrower = borrower
+
+            return queryFilter
+        }
+
+        const checkBookBorrower = (id,username) => {
+            Bookdb.findById(id).then(data => {
+                if(data.borrower === username)
+                    return true;
+                else
+                    return false;
+                    
+            })
+            .catch(err =>{
+                res.status(500).send({ message : "Error checkBookBorrowere"})
+            })
+        }
+
+        if(req.body.availability == "true"){
+            updateModel = createBookQueryFilter(false,req.user.username);
+            console.log(updateModel);
+        }
+
+        //todo put checkBookBorrower here for borrower validation
+        if(0){
+            updateModel = createBookQueryFilter(true,"");
+        }
+
+        Bookdb.findByIdAndUpdate(id, updateModel, { useFindAndModify: false})
+        .then(data => {
+            if(!data){
+                res.status(404).send({ message : `Cannot borrow book with ${id}.`})
+            }else{
+                res.status(200).send({ message : `Succsess ! `})
+            }
+        })
+        .catch(err =>{
+            res.status(500).send({ message : "Error Update book information"})
+        })
+
+    }else{
+        res.status(500).send({ message: "Internal server error"})
+    }
+}
+
 //create and save new book
 exports.create = async (req,res)=>{
     const { role } = req.user;
@@ -86,21 +141,6 @@ exports.create = async (req,res)=>{
     if(!req.body.author){
         res.status(400).send({ message : "Author can not be empty!"});
         return;
-    }
-    if(!req.body.availability){
-        res.status(400).send({ message : "Availability can not be empty!"});
-        return;
-    }else{
-        var availabilityBool;
-
-        if(req.body.availability.toUpperCase() == 'DOSTUPNA')
-            availabilityBool = 0
-        else if(req.body.availability.toUpperCase() == 'POSUĐENA')
-            availabilityBool = 1
-        else{
-            res.status(400).send({ message : "Invalid Availability!"});
-            return;
-        }
     }
     if(!req.body.description){
         res.status(400).send({ message : "Description can not be empty!"});
@@ -140,7 +180,7 @@ exports.create = async (req,res)=>{
     const book = new Bookdb({
         name : req.body.name,
         author : req.body.author,
-        availability : availabilityBool,
+        availability : true,
         description : req.body.description,
         type : req.body.type,
         bookpicture : linkBook,
@@ -149,7 +189,8 @@ exports.create = async (req,res)=>{
             
     book.save(book)
         .then(data => {
-                res.redirect('/bo/add-book');
+            console.log(data)
+                res.redirect('/bo');
             })
         .catch((err) => {
             console.error(err);
@@ -174,7 +215,7 @@ exports.find = async (req,res)=>{
                 }
             })
             .catch(err =>{
-                res.status(500).send({ message: "Erro retrieving book with id " + id})
+                res.status(500).send({ message: "Error retrieving book with id " + id})
             })
 
     }else{
@@ -200,11 +241,14 @@ exports.find = async (req,res)=>{
 
             queryString.author && (queryFilter.author = queryString.author)
             queryString.type && (queryFilter.type = queryString.type)
+            queryString.username && (queryFilter.borrower = queryString.username)
 
             return queryFilter
         }
 
         const query = createBookQueryFilter(req.query);
+
+        console.log(query)
 
         const limit = parseInt(size)
         const skip = (page - 1) * size

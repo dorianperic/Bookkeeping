@@ -14,12 +14,9 @@
             <img src="<%= books[i].bookpicture %>" alt="rover" />
           </div>
           <div class="card-body">
-            <% if(books[i].availability == true) {%>
-            <span class="tag tag-green">Dostupna knjiga</span>
-            <% } %>
-            <% if(books[i].availability == false) {%>
-              <span class="tag tag-red">Nedostupna knjiga</span>
-            <% } %>
+          
+            <span class="tag tag-purple">Posudili ste ovu knjigu</span>
+            
             <h4>
               <%= books[i].name %>
             </h4>
@@ -35,15 +32,13 @@
                 </small>
               </div>
             </div>
-            <% if(books[i].availability == true) {%>
               <form action="/api/book/borrow" method="Post" id="borrow_book">
                   <div class="form-group">
                         <input type="hidden" name="id" value="<%= books[i]._id %>">
                         <input type="hidden" name="availability" value="<%= books[i].availability %>">
-                        <button type="submit" class="button">Posudi knjigu!</button>
+                        <button type="submit">Vrati knjigu!</button>
                     </div>
               </form>
-            <% } %>
           </div>
         </div>
         <% } %>

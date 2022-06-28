@@ -14,6 +14,10 @@ var schema = new mongoose.Schema({
         type : Boolean,
         required : true
     },
+    borrower:{
+        type : String,
+        required : false,
+    },
     description:{
         type : String,
         required : true,
