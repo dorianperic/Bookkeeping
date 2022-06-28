@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,10 @@
   "bugs": {
     "url": "https://github.com/dorianperic/Bookkeeping/issues"
   },
-  "homepage": "https://github.com/dorianperic/Bookkeeping#readme"
+  "homepage": "https://github.com/dorianperic/Bookkeeping#readme",
+  "devDependencies": {
+    "jest": "^28.1.1",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
+  }
 }

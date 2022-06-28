@@ -11,7 +11,6 @@ exports.gallery = (req,res)=>{
     axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
                                                             size : req.query.size}})
     .then(function(response){
-        console.log(response.data);
         res.render('gallery', { books : response.data.books ,
                                 page : response.data.page ,
                                 numberOfPages : response.data.numberOfPages,
@@ -26,7 +25,6 @@ exports.gallery = (req,res)=>{
 //borrowed gallery (GET)
 exports.gallery_borrowed = async (req,res)=>{
     
-
     axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
                                                             size : req.query.size,
                                                             username : req.user.username}})
@@ -44,15 +42,11 @@ exports.gallery_borrowed = async (req,res)=>{
 
 //backoffice (GET)
 exports.bo = (req,res)=>{
-   
     const { role } = req.user;
-
-    console.log(role);
 
     if (role != true) {
         return res.sendStatus(403);
     }
-
 
     axios.get('http://localhost:3000/api/book', {params : { page : req.query.page,
                                                             size : req.query.size,

@@ -34,9 +34,6 @@ exports.login = (req,res)=>{
         .then(user =>{
             var passwordData = sha512(password, process.env.HASH_SALT);
             
-            //console.log(passwordData);
-            //console.log(user);
-
             if(user != 0){
                 
                 // username je jedinstven
@@ -45,7 +42,6 @@ exports.login = (req,res)=>{
                     const userData = { role: user[0].role ,
                                        username : user[0].name};
 
-                    //console.log(userData);
                     const accessToken = jwt.sign(userData, process.env.ACCESSTOKENSECRET);
 
                     if(process.env.NODE_ENV == "development"){
@@ -84,15 +80,21 @@ exports.borrow = async (req,res)=>{
             return queryFilter
         }
 
+        const checkBookBorrower = async (id,username) => {
+            const data = await Bookdb.findById(id);
+
+            if(data.borrower === username)
+                return true;
+            else    
+                return false;
+        }
+
         if(req.body.availability == "true"){
             var updateModel = createBookQueryFilter(false,req.user.username);
         }
-        else if(req.body.availability == "false"){
-            //todo add borrower check in model
+        else if(req.body.availability == "false" && await checkBookBorrower(id,req.user.username)){
             updateModel = createBookQueryFilter(true,"");
         }
-
-        console.log(JSON.stringify(updateModel) + "  updatemodel")
 
         Bookdb.findByIdAndUpdate(id, updateModel, { useFindAndModify: false})
         .then(data => {
@@ -175,7 +177,6 @@ exports.create = async (req,res)=>{
             
     book.save(book)
         .then(data => {
-            console.log(data)
                 res.redirect('/bo');
             })
         .catch((err) => {
@@ -234,8 +235,6 @@ exports.find = async (req,res)=>{
 
         const query = createBookQueryFilter(req.query);
 
-        console.log(query)
-
         const limit = parseInt(size)
         const skip = (page - 1) * size
 
@@ -284,21 +283,6 @@ exports.update = async (req,res)=>{
         res.status(400).send({ message : "Author can not be empty!"});
         return;
     }
-    if(!req.body.availability){
-        res.status(400).send({ message : "Availability can not be empty!"});
-        return;
-    }else{
-        var availabilityBool;
-
-        if(req.body.availability.toUpperCase() == 'DOSTUPNA')
-            availabilityBool = 0
-        else if(req.body.availability.toUpperCase() == 'POSUĐENA')
-            availabilityBool = 1
-        else{
-            res.status(400).send({ message : "Invalid Availability!"});
-            return;
-        }
-    }
     if(!req.body.description){
         res.status(400).send({ message : "Description can not be empty!"});
         return;
@@ -316,7 +300,6 @@ exports.update = async (req,res)=>{
         return;
     }
 
-    //TODO izdvojit u fju i prepravit da se ne blokiraju
     var imageBufferBook = req.files.bookimage.data
     var imageBufferAuthor = req.files.authorimage.data
 
@@ -337,7 +320,6 @@ exports.update = async (req,res)=>{
     var updateQuery = {
         name : req.body.name,
         author : req.body.author,
-        availability : availabilityBool,
         description : req.body.description,
         type : req.body.type,
         bookpicture : linkBook,
@@ -366,8 +348,6 @@ exports.delete = (req,res)=>{
         return res.sendStatus(403);
     }
     
-    console.log(id);
-
     Bookdb.findByIdAndDelete(id)
         .then(data => {
             if(!data){
