@@ -16,13 +16,9 @@
           <div class="card-body">
           
             <span class="tag tag-purple">Posudili ste ovu knjigu</span>
-            
             <h4>
               <%= books[i].name %>
             </h4>
-            <p>
-              <%= books[i].description %>
-            </p>
             <div class="author">
               <img src="<%= books[i].authorpicture %>" alt="user" />
               <div class="author-info">
@@ -36,7 +32,7 @@
                   <div class="form-group">
                         <input type="hidden" name="id" value="<%= books[i]._id %>">
                         <input type="hidden" name="availability" value="<%= books[i].availability %>">
-                        <button type="submit">Vrati knjigu!</button>
+                        <button type="submit" class="button-55">Vrati knjigu!</button>
                     </div>
               </form>
           </div>
