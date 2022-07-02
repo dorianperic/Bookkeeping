@@ -13,7 +13,7 @@ async function getImageUrl(data){
         .then(res=>res.data.data.link);   
 }
 
-var sha256 = function(password, salt){
+var sha512 = function(password, salt){
     var hash = crypto.createHmac('sha256', salt); 
     hash.update(password);
     var value = hash.digest('hex');
@@ -32,7 +32,7 @@ exports.login = (req,res)=>{
 
     Userdb.find(queryFilter)
         .then(user =>{
-            var passwordData = sha256(password, process.env.HASH_SALT);
+            var passwordData = sha512(password, process.env.HASH_SALT);
             
             if(user != 0){
                 
