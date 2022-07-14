@@ -206,9 +206,9 @@ exports.find = async (req,res)=>{
             })
 
     }else{
-        let {page, size, sort, name, author} = req.query
+        let {page, size, sort} = req.query
         
-        if(!page){
+        if(!page || 0 >= page){
             page = 1
         }else{
             page = parseInt(req.query.page);
@@ -216,7 +216,6 @@ exports.find = async (req,res)=>{
         if(!size){
             size = 10
         }
-        
         if(!sort || sort == "az"){
             sort = 1
         }else if(sort == "za"){
@@ -240,15 +239,7 @@ exports.find = async (req,res)=>{
 
         const numOfResults = await Bookdb.countDocuments(query);
         const numberOfPages = Math.ceil(numOfResults / limit);
-
-        if(page > numberOfPages){
-            res.status(501).send({ message : "Page does not exist (you have already reached last page)" })
-            return;
-        }else if(page < 1){
-            res.status(501).send({ message : "Page does not exist (theres no point counting pages into negative numbers)" })
-            return;
-        }
-
+        
         Bookdb.find(query).limit(limit).skip(skip).sort({name:sort})
             .then(books => {
                 res.send({books : books, 

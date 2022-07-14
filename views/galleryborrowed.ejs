@@ -44,26 +44,10 @@
       <div class="floating-button">+</div>
       <div class="element-container">
         <div class="break">
-          <% if(page == 1) { %> <a href="/gallery/?page=<%=page%>&size=<%=size%>">
+          <a href="/gallery">
             <span class="float-element tooltip-left">
-              <i class="material-icons">chevron_left
+              <i class="material-icons">home
               </i></a>
-          <% } %>
-          <% if(page > 1) { %> <a href="/gallery/?page=<%=page-1%>&size=<%=size%>">
-            <span class="float-element tooltip-left">
-              <i class="material-icons">chevron_left
-              </i></a>
-          <% } %>
-          <% if(page == numberOfPages) { %> <a href="/gallery/?page=<%=page%>&size=<%=size%>">
-            <span class="float-element tooltip-left">
-              <i class="material-icons">chevron_right
-              </i></a>
-          <% } %>
-          <% if(page < numberOfPages) { %> <a href="/gallery/?page=<%=page+1%>&size=<%=size%>">
-            <span class="float-element tooltip-left">
-              <i class="material-icons">chevron_right
-              </i></a>
-          <% } %>
         </div>
       </div>
     </div>
